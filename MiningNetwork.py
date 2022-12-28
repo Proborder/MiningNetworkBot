@@ -3,16 +3,15 @@ import random
 import pickle
 import time
 import re
+from os import system
 
 from art import tprint
-from os import system
+from fake_useragent import UserAgent
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
-
-from fake_useragent import UserAgent
 
 
 class MiningNetwork:
@@ -35,13 +34,13 @@ class MiningNetwork:
         self.nft = []
 
 
-    # cls
     def clear(self):
+        """Clear console"""
         return system('cls')
 
 
-    # Check xpath
     def exists_xpath(self, xpath):
+        """Check xpath"""
         try:
             self.driver.find_element_by_xpath(xpath)
             exist = True
@@ -50,8 +49,8 @@ class MiningNetwork:
         return exist
 
 
-    # Closes driver
     def closes_driver(self):
+        """Closes all driver"""
 
         self.driver.close()
         self.driver.quit()
@@ -59,8 +58,8 @@ class MiningNetwork:
         print('[+] Бот закончил работу')
 
 
-    # Sell SHARES
     def sell_shares(self):
+        """Sell SHARES"""
         self.driver.get('https://miningnetwork.io/?w=exchange&type=sell')
         time.sleep(10)
         try:
@@ -74,8 +73,8 @@ class MiningNetwork:
             pass
 
 
-    # Collect all id
     def collect_id(self, level):
+        """Collect all id cards"""
         self.nft.clear()
         id_list = []
         self.driver.get('https://miningnetwork.io/?w=asics')
@@ -91,8 +90,8 @@ class MiningNetwork:
         print(f'[+] Необходимо улучшить {len(self.nft)} асиков')
 
 
-    # Collect all reward
     def collect_reward(self):
+        """Collect all reward"""
         self.driver.get('https://miningnetwork.io/?w=asics')
         time.sleep(2)
         try:
@@ -103,8 +102,8 @@ class MiningNetwork:
             pass
 
 
-    # Upgrade nft
     def upgrade_nft(self):
+        """Upgrade nft"""
         for card in self.nft:
             self.driver.get(f'https://miningnetwork.io/?w=asic&id={card}&back=asics')
             time.sleep(5)
@@ -131,8 +130,8 @@ class MiningNetwork:
             time.sleep(5)
 
 
-    # Authorization load
     def authorization_load(self):
+        """Authorization load"""
         self.driver.get("https://wallet.wax.io/dashboard")
         self.clear()
         tprint('Mining Network Bot')
@@ -146,8 +145,8 @@ class MiningNetwork:
         self.driver.find_element_by_css_selector("div[aria-label='WAX Cloud Wallet']").click()
 
 
-    # Authorization dump
     def authorization_dump(self):
+        """Authorization dump"""
         self.driver.get("https://wallet.wax.io/")
         time.sleep(60)
         pickle.dump(self.driver.get_cookies(), open('cookies', 'wb'))
