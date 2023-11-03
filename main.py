@@ -1,5 +1,6 @@
-from MiningNetwork import MiningNetwork
 import time
+
+from MiningNetwork import MiningNetwork
 
 bot = MiningNetwork()
 bot.authorization_load()

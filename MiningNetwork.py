@@ -1,17 +1,15 @@
-import time
-import random
 import pickle
-import time
 import re
+import time
 from os import system
 
 from art import tprint
 from fake_useragent import UserAgent
 
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class MiningNetwork:
@@ -23,23 +21,21 @@ class MiningNetwork:
         # Options
         options = webdriver.ChromeOptions()
         options.add_extension('./extension/1.35.2_10.crx')
-        options.add_argument(f'user-agent={useragent.random}')                # Рандомный UserAgent
-        options.add_argument('--disable-blink-features=AutomationControlled') # Отключение webdriver
-        options.add_argument('--disable-software-rasterizer')                 # Без понятия что
-        options.add_argument('start-maximized')                               # Максимальное разрешение
-        # options.add_argument('headless') 									  # Фоновый режим
+        options.add_argument(f'user-agent={useragent.random}')
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        options.add_argument('--disable-software-rasterizer')
+        options.add_argument('start-maximized')
 
         service = Service(executable_path=ChromeDriverManager().install())
         self.driver = webdriver.Chrome(options=options, service=service)
         self.nft = []
 
-
-    def clear(self):
+    @staticmethod
+    def clear() -> int:
         """Clear console"""
         return system('cls')
 
-
-    def exists_xpath(self, xpath):
+    def exists_xpath(self, xpath: str) -> None:
         """Check xpath"""
         try:
             self.driver.find_element_by_xpath(xpath)
@@ -48,8 +44,7 @@ class MiningNetwork:
             exist = False
         return exist
 
-
-    def closes_driver(self):
+    def closes_driver(self) -> None:
         """Closes all driver"""
 
         self.driver.close()
@@ -57,8 +52,7 @@ class MiningNetwork:
 
         print('[+] Бот закончил работу')
 
-
-    def sell_shares(self):
+    def sell_shares(self) -> None:
         """Sell SHARES"""
         self.driver.get('https://miningnetwork.io/?w=exchange&type=sell')
         time.sleep(10)
@@ -72,8 +66,7 @@ class MiningNetwork:
         except Exception as ex:
             pass
 
-
-    def collect_id(self, level):
+    def collect_id(self, level: int) -> None:
         """Collect all id cards"""
         self.nft.clear()
         id_list = []
@@ -89,8 +82,7 @@ class MiningNetwork:
 
         print(f'[+] Необходимо улучшить {len(self.nft)} асиков')
 
-
-    def collect_reward(self):
+    def collect_reward(self) -> None:
         """Collect all reward"""
         self.driver.get('https://miningnetwork.io/?w=asics')
         time.sleep(2)
@@ -101,8 +93,7 @@ class MiningNetwork:
         except NoSuchElementException:
             pass
 
-
-    def upgrade_nft(self):
+    def upgrade_nft(self) -> None:
         """Upgrade nft"""
         for card in self.nft:
             self.driver.get(f'https://miningnetwork.io/?w=asic&id={card}&back=asics')
@@ -129,8 +120,7 @@ class MiningNetwork:
 
             time.sleep(5)
 
-
-    def authorization_load(self):
+    def authorization_load(self) -> None:
         """Authorization load"""
         self.driver.get("https://wallet.wax.io/dashboard")
         self.clear()
@@ -144,8 +134,7 @@ class MiningNetwork:
         time.sleep(2)
         self.driver.find_element_by_css_selector("div[aria-label='WAX Cloud Wallet']").click()
 
-
-    def authorization_dump(self):
+    def authorization_dump(self) -> None:
         """Authorization dump"""
         self.driver.get("https://wallet.wax.io/")
         time.sleep(60)
