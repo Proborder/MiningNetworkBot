@@ -2,21 +2,25 @@ import time
 
 from MiningNetwork import MiningNetwork
 
-bot = MiningNetwork()
-bot.authorization_load()
 
-circle = 1
+def main():
+    bot = MiningNetwork()
+    bot.authorization_load()
 
-while True:
+    circle = 1
 
-    print(f'[Круг {circle}]')
+    while True:
 
-    time.sleep(10)
-    bot.collect_reward()
-    bot.collect_id(100)
-    bot.upgrade_nft()
-    # bot.sell_shares()
+        print(f'[Круг {circle}]')
 
-    circle += 1
-    time.sleep(60)
+        time.sleep(10)
+        bot.collect_reward()
+        bot.collect_id(100)
+        bot.upgrade_nft()
+        # bot.sell_shares()
 
+        circle += 1
+        time.sleep(60)
+
+if __name__ == '__main__':
+    main()

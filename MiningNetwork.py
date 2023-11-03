@@ -35,8 +35,9 @@ class MiningNetwork:
         """Clear console"""
         return system('cls')
 
-    def exists_xpath(self, xpath: str) -> None:
+    def exists_xpath(self, xpath: str) -> bool:
         """Check xpath"""
+        exist = None
         try:
             self.driver.find_element_by_xpath(xpath)
             exist = True
