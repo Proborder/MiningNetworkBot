@@ -37,7 +37,7 @@ class MiningNetwork:
 
     def exists_xpath(self, xpath: str) -> bool:
         """Check xpath"""
-        exist = None
+        exist = False
         try:
             self.driver.find_element_by_xpath(xpath)
             exist = True
